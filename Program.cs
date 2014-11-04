@@ -7,19 +7,16 @@ using System.Linq;
 namespace Snake_V2
 {
 #if WINDOWS || LINUX
-    /// <summary>
-    /// The main class.
-    /// </summary>
+
     public static class Program
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
         [STAThread]
         static void Main()
         {
-            using (var game = new SnakeGame())
-                game.Run();
+            using (var game = new GameManager())
+            {
+                game.Run(); 
+            }
         }
     }
 #endif

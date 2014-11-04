@@ -35,10 +35,14 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="BaseGame.cs" />
+    <Compile Include="LobbyGame.cs" />
     <Compile Include="NetworkClientManager.cs" />
-    <Compile Include="SnakeGame.cs" />
+    <Compile Include="GameManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AssetsManager.cs" />
+    <Compile Include="SnakeGame.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="OpenTK">
@@ -63,14 +67,15 @@
     </Content>
     <Content Include="Icon.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Content\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="Snake.Definitions\Snake.Definitions.csproj">
       <Project>{ad9c634e-0b0f-4fc8-9821-e2d12af3b3e9}</Project>
       <Name>Snake.Definitions</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Content\Fonts\MyFont.xnb" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -13,6 +13,13 @@ namespace Server
 
         static void Main(string[] args)
         {
+            Init();
+        }
+
+        static void Init()
+        {
+            ClientConnections = new List<NetConnection>();
+            ServerManager = new NetworkServerManager();
             ServerManager.Connect();
             ServerManager.NewConnection += ServerNewConnection;
         }

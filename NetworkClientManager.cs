@@ -14,9 +14,16 @@ namespace Snake_V2
         private NetIncomingMessage IncomingPackage { get; set; }
         private Thread ListenThread { get; set; }
 
-        public bool IsConnected { get; private set; }
-        public event EventHandler<PackageEventArgs> IncomingDataPackage;
+        public NetConnectionStatus ConnectionStatus
+        {
+            get
+            {
+                return Client.ConnectionStatus;
+            }
+        }
 
+        public event EventHandler<PackageEventArgs> IncomingDataPackage;
+        public event EventHandler<EventArgs> ConnectionApprove;
 
         public NetworkClientManager()
         {
@@ -41,7 +48,7 @@ namespace Snake_V2
             this.ListenThread.Abort();
         }
 
-        public void Listen()
+        private void Listen()
         {
             while (true)
             {
@@ -49,9 +56,6 @@ namespace Snake_V2
                 {
                     switch (this.IncomingPackage.MessageType)
                     {
-                        case NetIncomingMessageType.ConnectionApproval:
-                            break;
-
                         case NetIncomingMessageType.Data:
                             this.ManageIncomingData(this.IncomingPackage);
                             break;
@@ -67,15 +71,15 @@ namespace Snake_V2
 
         public void ManageIncomingData(NetIncomingMessage dataPackage)
         {
-            switch (dataPackage.PeekByte())
-            {
-                case (byte)PackageType.Handshake:
-                    this.IsConnected = true;
-                    break;
+            this.OnIncomingDataPackage(dataPackage);
+        }
 
-                default:
-                    this.OnIncomingDataPackage(dataPackage);
-                    break;
+        protected virtual void OnConnectionApprove()
+        {
+            var handler = this.ConnectionApprove;
+            if (handler != null)
+            {
+                handler(this, new EventArgs());
             }
         }
 
